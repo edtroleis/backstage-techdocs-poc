@@ -12,3 +12,6 @@ repos/
 # Segredos e configuração local
 .env
 *.local.yaml
+
+# Estado do ./backstage.sh (PID, log)
+.run/
