@@ -100,6 +100,14 @@ sync_repos() {
 # Publica no Azurite só os repos que mudaram desde a última publicação
 publish_docs() {
   local count=0
+  # Os marcadores valem para um volume específico do Azurite: se o volume foi recriado
+  # (ex.: delete de outro clone), as docs sumiram e tudo é publicado de novo
+  local volume_id
+  volume_id="$(podman volume inspect -f '{{.CreatedAt}}' techdocs-azurite 2>/dev/null || true)"
+  if [[ "$(cat "$RUN/azurite-volume" 2>/dev/null)" != "$volume_id" ]]; then
+    rm -f "$RUN"/published-*
+    echo "$volume_id" >"$RUN/azurite-volume"
+  fi
   for dir in "$REPOS"/*/; do
     dir="${dir%/}"
     [[ -f "$dir/catalog-info.yaml" ]] && grep -q 'backstage.io/techdocs-ref' "$dir/catalog-info.yaml" || continue
