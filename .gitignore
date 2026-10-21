@@ -15,3 +15,6 @@ repos/
 
 # Estado do ./backstage.sh (PID, log)
 .run/
+
+# Ferramentas baixadas pelo backstage.sh (PlantUML)
+.tools/
