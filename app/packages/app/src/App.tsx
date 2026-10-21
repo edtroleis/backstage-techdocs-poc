@@ -6,6 +6,7 @@ import {
   docsPortalModule,
   docsPortalTechDocsModule,
 } from './modules/docsPortal';
+import { signInModule } from './modules/signIn';
 
 export default createApp({
   features: [
@@ -14,5 +15,6 @@ export default createApp({
     homeModule,
     docsPortalModule,
     docsPortalTechDocsModule,
+    signInModule,
   ],
 });

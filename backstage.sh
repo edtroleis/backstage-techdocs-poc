@@ -22,6 +22,14 @@ BACKEND=http://localhost:7007
 NODE_VERSION=24
 PLANTUML_VERSION=1.2026.8
 
+# Variáveis locais opcionais (ex.: credenciais do login com GitHub); ver .env.example
+if [[ -f "$ROOT/.env" ]]; then
+  set -a
+  # shellcheck disable=SC1091
+  source "$ROOT/.env"
+  set +a
+fi
+
 info() { printf '\033[1;34m▸\033[0m %s\n' "$*"; }
 ok()   { printf '\033[1;32m✔\033[0m %s\n' "$*"; }
 warn() { printf '\033[1;33m!\033[0m %s\n' "$*"; }
@@ -182,16 +190,21 @@ cmd_start() {
   info "Subindo o Backstage"
   GITHUB_TOKEN="${GITHUB_TOKEN:-$(gh auth token)}"
   export GITHUB_TOKEN
+  local config=(--config ../../app-config.yaml --config ../../app-config.azurite.yaml)
+  local login="guest"
+  if [[ -n "${AUTH_GITHUB_CLIENT_ID:-}" && -n "${AUTH_GITHUB_CLIENT_SECRET:-}" ]]; then
+    config+=(--config ../../app-config.github-auth.yaml)
+    login="GitHub ou guest"
+  fi
   (
     cd "$APP"
-    setsid yarn start --config ../../app-config.yaml --config ../../app-config.azurite.yaml \
-      </dev/null >"$LOG" 2>&1 &
+    setsid yarn start "${config[@]}" </dev/null >"$LOG" 2>&1 &
     echo $! >"$PID_FILE"
   )
 
   for _ in $(seq 1 150); do
     if healthy; then
-      ok "Pronto: $FRONTEND  (entre como guest)"
+      ok "Pronto: $FRONTEND  (login: $login)"
       return
     fi
     running || die "O Backstage parou ao iniciar. Veja: $LOG"

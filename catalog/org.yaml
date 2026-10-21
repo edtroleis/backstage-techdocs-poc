@@ -186,6 +186,16 @@ spec:
   memberOf: [pessoas-cultura]
 ---
 apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  # Mesmo nome do login no GitHub: o login com GitHub resolve para este usuário
+  name: edtroleis
+spec:
+  profile:
+    displayName: Edtroleis
+  memberOf: [platform-team]
+---
+apiVersion: backstage.io/v1alpha1
 kind: System
 metadata:
   name: demo-system

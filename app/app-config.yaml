@@ -1,5 +1,5 @@
 app:
-  title: Scaffolded Backstage App
+  title: Portal de Documentação
   baseUrl: http://localhost:3000
 
   # Enable all packages by default, this will discover packages from packages/app/package.json
@@ -111,7 +111,7 @@ app:
               height: 4
 
 organization:
-  name: My Company
+  name: Minha Empresa
 
 backend:
   # Used for enabling authentication, secret is shared by all backend plugins

@@ -1,0 +1,19 @@
+# Overlay: login com GitHub (OAuth App), além do guest.
+# Carregado pelo backstage.sh quando AUTH_GITHUB_CLIENT_ID e AUTH_GITHUB_CLIENT_SECRET estão definidos
+# (variáveis de ambiente ou arquivo .env na raiz do projeto).
+app:
+  githubSignIn: true
+
+auth:
+  environment: development
+  providers:
+    github:
+      development:
+        clientId: ${AUTH_GITHUB_CLIENT_ID}
+        clientSecret: ${AUTH_GITHUB_CLIENT_SECRET}
+        signIn:
+          resolvers:
+            # Usa o usuário do catálogo com o mesmo login do GitHub (ex.: user:default/edtroleis).
+            # Quem não está no catálogo também entra (útil num repositório público de demonstração).
+            - resolver: usernameMatchingUserEntityName
+              dangerouslyAllowSignInWithoutUserInCatalog: true

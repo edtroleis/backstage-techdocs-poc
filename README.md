@@ -33,6 +33,7 @@ manuais com selo de status, serviço com doc, serviço sem doc (guia passo a pas
 - [Como documentar um novo componente](#como-documentar-um-novo-componente)
 - [Estrutura do projeto](#estrutura-do-projeto)
 - [Configuração](#configuração)
+- [Login com GitHub (opcional)](#login-com-github-opcional)
 - [Solução de problemas](#solução-de-problemas)
 - [Limitações conhecidas](#limitações-conhecidas)
 - [Especificações](#especificações)
@@ -219,8 +220,10 @@ do TechDocs: [specs/05-portal-docs.md](specs/05-portal-docs.md).
 ├── app/                       # app Backstage (novo frontend system)
 │   ├── app-config.yaml        # catálogo, TechDocs (publisher local), páginas e cards
 │   ├── app-config.azurite.yaml# overlay: TechDocs lendo do Azure Blob (usado pelo start)
+│   ├── app-config.github-auth.yaml # overlay: login com GitHub (se houver credenciais)
 │   └── packages/app/src/modules/
 │       ├── docsPortal/        # páginas de cards, addon do topo das docs, guia "sem doc"
+│       ├── signIn/            # página de login: GitHub (opcional) + guest
 │       └── nav/               # menu lateral com o grupo Docs
 ├── catalog/org.yaml           # times, pessoas e o System de exemplo
 ├── scripts/
@@ -244,6 +247,8 @@ Criados pelo `start` (ignorados pelo git): `repos/`, `.venv/`, `.tools/` (PlantU
 | Item | Onde | Observação |
 |------|------|------------|
 | Token do GitHub | variável `GITHUB_TOKEN` | Se não definida, o `start` usa `gh auth token`. Nunca é gravada em arquivo |
+| Variáveis locais | `.env` (modelo em `.env.example`) | Carregado pelo `backstage.sh`; ignorado pelo git |
+| Login com GitHub | `app/app-config.github-auth.yaml` | Carregado só se `AUTH_GITHUB_CLIENT_ID` e `AUTH_GITHUB_CLIENT_SECRET` existirem |
 | Publisher do TechDocs | `app/app-config.azurite.yaml` | Azure Blob, container `techdocs`, connection string do Azurite |
 | Banco do Backstage | `app/app-config.yaml` → `backend.database` | SQLite em arquivo (persiste avaliações entre restarts) |
 | Repositórios no catálogo | `app/app-config.yaml` → `catalog.locations` | Um `catalog-info.yaml` por repositório |
@@ -253,6 +258,37 @@ Criados pelo `start` (ignorados pelo git): `repos/`, `.venv/`, `.tools/` (PlantU
 (ou use `credentials.accountName` com managed identity) e publique pelo CI com
 `techdocs-cli publish --publisher-type azureBlobStorage`. Detalhes em
 [specs/04](specs/04-techdocs-blob-azurite.md).
+
+---
+
+## Login com GitHub (opcional)
+
+Por padrão, o login é como **guest**. Com um OAuth App do GitHub, a página de login passa a
+mostrar **GitHub e Guest**, e cada pessoa entra com a própria conta. Assim as avaliações somam
+pessoas diferentes e o filtro **Owned** mostra as docs do seu time.
+
+1. Crie um OAuth App em <https://github.com/settings/applications/new>:
+
+   | Campo | Valor |
+   |-------|-------|
+   | Application name | `Backstage local` (qualquer nome) |
+   | Homepage URL | `http://localhost:3000` |
+   | Authorization callback URL | `http://localhost:7007/api/auth/github/handler/frame` |
+
+2. Gere um *client secret* e grave as credenciais no `.env` (ignorado pelo git):
+
+   ```bash
+   cp .env.example .env
+   # edite .env: AUTH_GITHUB_CLIENT_ID=... e AUTH_GITHUB_CLIENT_SECRET=...
+   ```
+
+3. Reinicie: `./backstage.sh stop && ./backstage.sh start`. A mensagem final mostra
+   `login: GitHub ou guest`.
+
+Quem entra com o GitHub vira `user:default/<login>`. Se esse usuário existir em
+[`catalog/org.yaml`](catalog/org.yaml), ele herda os times (ex.: `edtroleis` → Platform Team).
+Contas que não estão no catálogo também entram, porque o resolver usa
+`dangerouslyAllowSignInWithoutUserInCatalog`; em produção, remova essa opção.
 
 ---
 
@@ -274,8 +310,8 @@ Criados pelo `start` (ignorados pelo git): `repos/`, `.venv/`, `.tools/` (PlantU
 
 ## Limitações conhecidas
 
-- **Login guest:** todos os acessos são o mesmo usuário. As avaliações não somam pessoas diferentes
-  e o filtro "Owned" fica vazio. Com login real (GitHub OAuth ou SSO), isso se resolve.
+- **Sem login com GitHub configurado**, todos entram como guest (o mesmo usuário): as avaliações
+  não somam pessoas e o filtro "Owned" fica vazio. Veja [Login com GitHub](#login-com-github-opcional).
 - **Publicação local:** neste ambiente as docs são publicadas pelo `start`. Em produção, o CI de
   cada repositório publicaria direto no Azure Blob.
 - **Textos em inglês de terceiros:** parte do diálogo de avaliação (plugin `entity-feedback`) e o
