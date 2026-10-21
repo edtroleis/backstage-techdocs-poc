@@ -11,10 +11,19 @@ Sobe com **um comando**, numa máquina Linux ou WSL2:
 ./backstage.sh start      # http://localhost:3000
 ```
 
+## Demonstração
+
+[![Tour pelo portal Backstage + TechDocs (3 min)](docs/media/tour-poster.png)](https://github.com/edtroleis/backstage-techdocs-poc/releases/download/v1.0.0/backstage-techdocs-tour.mp4)
+
+**[▶ Assistir ao tour (MP4, 3 min, 11 MB)](https://github.com/edtroleis/backstage-techdocs-poc/releases/download/v1.0.0/backstage-techdocs-tour.mp4)**:
+onboarding, wikis com diagramas, avaliação com estrelas, os dois jeitos de comentar, golden paths,
+manuais com selo de status, serviço com doc, serviço sem doc (guia passo a passo), All Docs e busca.
+
 ---
 
 ## Sumário
 
+- [Demonstração](#demonstração)
 - [O que tem no portal](#o-que-tem-no-portal)
 - [Arquitetura](#arquitetura)
 - [Pré-requisitos](#pré-requisitos)
@@ -27,6 +36,7 @@ Sobe com **um comando**, numa máquina Linux ou WSL2:
 - [Solução de problemas](#solução-de-problemas)
 - [Limitações conhecidas](#limitações-conhecidas)
 - [Especificações](#especificações)
+- [Licença](#licença)
 
 ---
 
@@ -295,3 +305,9 @@ Com o Backstage rodando, e o Chromium do Playwright instalado
 mkdir -p .run/video
 node scripts/record-tour.cjs app .run/video   # gera .run/video/techdocs-tour.webm
 ```
+
+---
+
+## Licença
+
+[MIT](LICENSE): use, copie, modifique e distribua à vontade, mantendo o aviso de copyright.
