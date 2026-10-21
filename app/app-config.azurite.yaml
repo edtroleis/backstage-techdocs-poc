@@ -1,0 +1,11 @@
+# Overlay: TechDocs lendo do Azure Blob Storage emulado (Azurite). Ver specs/04-techdocs-blob-azurite.md
+#
+#   eval "$(../scripts/azurite.sh env)"
+#   GITHUB_TOKEN=$(gh auth token) yarn start --config ../../app-config.yaml --config ../../app-config.azurite.yaml
+techdocs:
+  builder: 'external'
+  publisher:
+    type: 'azureBlobStorage'
+    azureBlobStorage:
+      containerName: techdocs
+      connectionString: ${AZURE_STORAGE_CONNECTION_STRING}

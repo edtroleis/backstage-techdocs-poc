@@ -1,0 +1,15 @@
+site_name: CHANGE-ME
+# Avisos do mkdocs (links/nav quebrados) viram erro e falham o CI
+strict: true
+nav:
+  - Início: index.md
+plugins:
+  - techdocs-core
+markdown_extensions:
+  # Blocos ```mermaid saem como <pre class="mermaid">, renderizados no Backstage pelo
+  # backstage-plugin-techdocs-addon-mermaid. PlantUML já vem no techdocs-core (plantuml_markdown).
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format

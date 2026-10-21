@@ -1,0 +1,195 @@
+# Organização da PoC: grupos, pessoas (fictícias) e o System de exemplo.
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: platform-team
+  title: Platform Team
+  description: Plataforma, CI/CD, Backstage, golden paths e manuais de ferramentas
+spec:
+  type: team
+  profile: { displayName: Platform Team }
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: arquitetura
+  title: Arquitetura
+  description: Princípios, padrões tecnológicos e decisões de arquitetura transversais
+spec:
+  type: team
+  profile: { displayName: Arquitetura }
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: governanca-compliance
+  title: Governança e Compliance
+  description: Papéis e responsabilidades, gestão de riscos, obrigações, controles e evidências
+spec:
+  type: team
+  profile: { displayName: Governança e Compliance }
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: dados-ia
+  title: Dados e IA
+  description: Plataforma de dados, machine learning e uso responsável de IA
+spec:
+  type: team
+  profile: { displayName: Dados e IA }
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: squad-checkout
+  title: Squad Checkout
+  description: Jornada de compra, pedidos e pagamentos
+spec:
+  type: team
+  profile: { displayName: Squad Checkout }
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: pessoas-cultura
+  title: Pessoas e Cultura
+  description: Onboarding, desenvolvimento de pessoas e comunicação interna
+spec:
+  type: team
+  profile: { displayName: Pessoas e Cultura }
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: ana.souza
+spec:
+  profile:
+    displayName: Ana Souza
+    email: ana.souza@exemplo.com
+  memberOf: [platform-team]
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: bruno.lima
+spec:
+  profile:
+    displayName: Bruno Lima
+    email: bruno.lima@exemplo.com
+  memberOf: [platform-team]
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: carla.mendes
+spec:
+  profile:
+    displayName: Carla Mendes
+    email: carla.mendes@exemplo.com
+  memberOf: [arquitetura]
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: diego.rocha
+spec:
+  profile:
+    displayName: Diego Rocha
+    email: diego.rocha@exemplo.com
+  memberOf: [arquitetura]
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: elisa.martins
+spec:
+  profile:
+    displayName: Elisa Martins
+    email: elisa.martins@exemplo.com
+  memberOf: [governanca-compliance]
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: fabio.nunes
+spec:
+  profile:
+    displayName: Fábio Nunes
+    email: fabio.nunes@exemplo.com
+  memberOf: [governanca-compliance]
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: gabriela.costa
+spec:
+  profile:
+    displayName: Gabriela Costa
+    email: gabriela.costa@exemplo.com
+  memberOf: [dados-ia]
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: henrique.alves
+spec:
+  profile:
+    displayName: Henrique Alves
+    email: henrique.alves@exemplo.com
+  memberOf: [dados-ia]
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: isabela.ferreira
+spec:
+  profile:
+    displayName: Isabela Ferreira
+    email: isabela.ferreira@exemplo.com
+  memberOf: [squad-checkout]
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: joao.pereira
+spec:
+  profile:
+    displayName: João Pereira
+    email: joao.pereira@exemplo.com
+  memberOf: [squad-checkout]
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: karina.dias
+spec:
+  profile:
+    displayName: Karina Dias
+    email: karina.dias@exemplo.com
+  memberOf: [pessoas-cultura]
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: lucas.barbosa
+spec:
+  profile:
+    displayName: Lucas Barbosa
+    email: lucas.barbosa@exemplo.com
+  memberOf: [pessoas-cultura]
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: demo-system
+  title: Demo System
+  description: Sistema de exemplo da PoC
+spec:
+  owner: platform-team

@@ -1,0 +1,13 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: CHANGE-ME
+  description: CHANGE-ME
+  tags: []
+  annotations:
+    github.com/project-slug: edtroleis/CHANGE-ME
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: documentation # ou service
+  lifecycle: experimental
+  owner: platform-team

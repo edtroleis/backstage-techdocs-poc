@@ -1,0 +1,9 @@
+https://github.com/edtroleis/techdocs-demo-service.git
+https://github.com/edtroleis/techdocs-wiki-golden-path.git
+https://github.com/edtroleis/techdocs-wiki-onboarding.git
+https://github.com/edtroleis/techdocs-wiki-engineering.git
+https://github.com/edtroleis/techdocs-onboarding.git
+https://github.com/edtroleis/techdocs-wikis.git
+https://github.com/edtroleis/techdocs-golden-paths.git
+https://github.com/edtroleis/techdocs-manuais.git
+https://github.com/edtroleis/techdocs-pedidos-service.git

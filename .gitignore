@@ -1,0 +1,14 @@
+# Dependências e ambientes locais
+node_modules/
+.venv/
+__pycache__/
+
+# Gerado: docs publicadas pelo scripts/techdocs-publish.sh (publisher local)
+techdocs-storage/
+
+# Cada repo de docs tem o próprio repositório no GitHub (lista em scripts/repos.txt)
+repos/
+
+# Segredos e configuração local
+.env
+*.local.yaml
